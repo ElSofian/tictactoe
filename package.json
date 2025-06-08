@@ -1,0 +1,38 @@
+{
+  "name": "tictactoe",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "15.3.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-toastify": "^11.0.5"
+  },
+  "devDependencies": {
+    "@auth/prisma-adapter": "^2.8.0",
+    "@eslint/eslintrc": "^3",
+    "@lucia-auth/adapter-prisma": "^4.0.1",
+    "@lucia-auth/nextjs": "^0.5.7",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "@prisma/client": "^6.6.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "lucia": "^3.2.2",
+    "mysql2": "^3.14.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

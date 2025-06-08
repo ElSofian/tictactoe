@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+	--border: var(--border);
+	--border-light: var(--border-light);
+	--muted-foreground: var(--muted-foreground);
+	--muted-background: var(--muted-background);
+	--table-header-dark: var(--table-header-dark);
+}
+
+:root {
+	--border: oklch(0.928 0.006 264.531);
+	--border-light: oklch(0.99 0.006 264.531);
+	--muted-foreground: oklch(0.551 0.027 264.364);
+	--muted-background: oklch(0.97 0.001 106.424);
+	--table-header-dark: #27272A;
+	--shadow-main: 10px 10px 0px 0px #000000;
+	--shadow-little: 4px 4px 0px 0px #000000;
+}
