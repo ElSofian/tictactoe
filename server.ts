@@ -8,13 +8,21 @@ const PORT = Number(process.env.SOCKET_PORT) || 3800;
 const app = express();
 
 app.use(cors({
-	origin: 'http://localhost:3000'
+	origin: [
+		'http://localhost:3000',
+		'http://localhost:6000',
+		'https://ttt.sofianelaloui.me'
+	]
 }));
 
 const server = createServer(app);
 
 const io = new Server(server, {
-  cors: { origin: 'http://localhost:3000', methods: ['GET','POST'] }
+  cors: { origin: [
+		'http://localhost:3000',
+		'http://localhost:6000',
+		'https://ttt.sofianelaloui.me'
+	], methods: ['GET','POST'] }
 });
 
 type WaitingUser = {
