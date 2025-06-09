@@ -7,6 +7,11 @@ import { getSocket } from "@/lib/socket";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+function getTheme() {
+	const theme = localStorage.getItem("theme") || "light";
+	return theme === "light" ? "light" : "dark";
+}
+
 function calculateWinner(sq: (string|null)[]) {
 	const lines = [
 		[0,1,2],[3,4,5],[6,7,8],
@@ -120,9 +125,9 @@ export default function GamePage() {
   };
 
   return (
-    <Main>
+    <Main inGame={true}>
 			<div className="flex flex-col items-center justify-center gap-2">
-				<ToastContainer position="top-center" autoClose={3000} />
+				<ToastContainer position="top-center" autoClose={3000} theme={getTheme()} />
 				<h1 className="text-4xl mb-6 text-center">{status}</h1>
 				<div className="grid grid-cols-3 gap-2">
 					{squares.map((v, i) => (
@@ -132,7 +137,7 @@ export default function GamePage() {
 						className={`
 							w-20 h-20 flex items-center justify-center
 							text-3xl font-bold text-white
-							bg-gray-700 rounded cursor-pointer
+							bg-black dark:bg-gray-700 rounded cursor-pointer
 							${!calculateWinner(squares) && v === null ? 'hover:bg-gray-600' : ''}
 							`}
 							>
