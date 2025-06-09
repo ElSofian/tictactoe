@@ -52,7 +52,7 @@ export default function GamePage() {
   }, [symbol, opponent]);
 
   useEffect(() => {
-    const onMove = ({ squares: sq, xIsNext: nx }: any) => {
+    const onMove = ({ squares: sq, xIsNext: nx }: { squares: (string|null)[], xIsNext: boolean }) => {
       setSquares(sq);
       setXIsNext(nx);
     };

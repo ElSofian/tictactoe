@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter }    from "next/navigation";
-import { getSocket }    from "@/lib/socket";
-import { User }         from "@/types";
-import Main             from "@/components/main";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getSocket } from "@/lib/socket";
+import { User } from "@/types";
+import Main from "@/components/main";
 
 export default function Home({ user }: { user: User }) {
   const [searching, setSearching] = useState(false);
