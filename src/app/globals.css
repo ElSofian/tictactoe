@@ -19,3 +19,13 @@
 	--shadow-main: 10px 10px 0px 0px #000000;
 	--shadow-little: 4px 4px 0px 0px #000000;
 }
+
+@keyframes spin-custom {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-custom {
+  animation: spin-custom 1s linear infinite;
+}

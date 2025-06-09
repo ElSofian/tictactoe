@@ -3033,6 +3033,7 @@ export namespace Prisma {
     player_1: string | null
     player_2: string | null
     winner: string | null
+    draw: boolean | null
     date: Date | null
   }
 
@@ -3041,6 +3042,7 @@ export namespace Prisma {
     player_1: string | null
     player_2: string | null
     winner: string | null
+    draw: boolean | null
     date: Date | null
   }
 
@@ -3049,6 +3051,7 @@ export namespace Prisma {
     player_1: number
     player_2: number
     winner: number
+    draw: number
     date: number
     _all: number
   }
@@ -3067,6 +3070,7 @@ export namespace Prisma {
     player_1?: true
     player_2?: true
     winner?: true
+    draw?: true
     date?: true
   }
 
@@ -3075,6 +3079,7 @@ export namespace Prisma {
     player_1?: true
     player_2?: true
     winner?: true
+    draw?: true
     date?: true
   }
 
@@ -3083,6 +3088,7 @@ export namespace Prisma {
     player_1?: true
     player_2?: true
     winner?: true
+    draw?: true
     date?: true
     _all?: true
   }
@@ -3178,6 +3184,7 @@ export namespace Prisma {
     player_1: string | null
     player_2: string | null
     winner: string | null
+    draw: boolean
     date: Date
     _count: GamesCountAggregateOutputType | null
     _avg: GamesAvgAggregateOutputType | null
@@ -3205,6 +3212,7 @@ export namespace Prisma {
     player_1?: boolean
     player_2?: boolean
     winner?: boolean
+    draw?: boolean
     date?: boolean
     User_games_player_1ToUser?: boolean | games$User_games_player_1ToUserArgs<ExtArgs>
     User_games_player_2ToUser?: boolean | games$User_games_player_2ToUserArgs<ExtArgs>
@@ -3218,10 +3226,11 @@ export namespace Prisma {
     player_1?: boolean
     player_2?: boolean
     winner?: boolean
+    draw?: boolean
     date?: boolean
   }
 
-  export type gamesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "player_1" | "player_2" | "winner" | "date", ExtArgs["result"]["games"]>
+  export type gamesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "player_1" | "player_2" | "winner" | "draw" | "date", ExtArgs["result"]["games"]>
   export type gamesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     User_games_player_1ToUser?: boolean | games$User_games_player_1ToUserArgs<ExtArgs>
     User_games_player_2ToUser?: boolean | games$User_games_player_2ToUserArgs<ExtArgs>
@@ -3240,6 +3249,7 @@ export namespace Prisma {
       player_1: string | null
       player_2: string | null
       winner: string | null
+      draw: boolean
       date: Date
     }, ExtArgs["result"]["games"]>
     composites: {}
@@ -3617,6 +3627,7 @@ export namespace Prisma {
     readonly player_1: FieldRef<"games", 'String'>
     readonly player_2: FieldRef<"games", 'String'>
     readonly winner: FieldRef<"games", 'String'>
+    readonly draw: FieldRef<"games", 'Boolean'>
     readonly date: FieldRef<"games", 'DateTime'>
   }
     
@@ -4073,6 +4084,7 @@ export namespace Prisma {
     player_1: 'player_1',
     player_2: 'player_2',
     winner: 'winner',
+    draw: 'draw',
     date: 'date'
   };
 
@@ -4144,6 +4156,13 @@ export namespace Prisma {
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4266,6 +4285,7 @@ export namespace Prisma {
     player_1?: StringNullableFilter<"games"> | string | null
     player_2?: StringNullableFilter<"games"> | string | null
     winner?: StringNullableFilter<"games"> | string | null
+    draw?: BoolFilter<"games"> | boolean
     date?: DateTimeFilter<"games"> | Date | string
     User_games_player_1ToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     User_games_player_2ToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -4277,6 +4297,7 @@ export namespace Prisma {
     player_1?: SortOrderInput | SortOrder
     player_2?: SortOrderInput | SortOrder
     winner?: SortOrderInput | SortOrder
+    draw?: SortOrder
     date?: SortOrder
     User_games_player_1ToUser?: UserOrderByWithRelationInput
     User_games_player_2ToUser?: UserOrderByWithRelationInput
@@ -4292,6 +4313,7 @@ export namespace Prisma {
     player_1?: StringNullableFilter<"games"> | string | null
     player_2?: StringNullableFilter<"games"> | string | null
     winner?: StringNullableFilter<"games"> | string | null
+    draw?: BoolFilter<"games"> | boolean
     date?: DateTimeFilter<"games"> | Date | string
     User_games_player_1ToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     User_games_player_2ToUser?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
@@ -4303,6 +4325,7 @@ export namespace Prisma {
     player_1?: SortOrderInput | SortOrder
     player_2?: SortOrderInput | SortOrder
     winner?: SortOrderInput | SortOrder
+    draw?: SortOrder
     date?: SortOrder
     _count?: gamesCountOrderByAggregateInput
     _avg?: gamesAvgOrderByAggregateInput
@@ -4319,6 +4342,7 @@ export namespace Prisma {
     player_1?: StringNullableWithAggregatesFilter<"games"> | string | null
     player_2?: StringNullableWithAggregatesFilter<"games"> | string | null
     winner?: StringNullableWithAggregatesFilter<"games"> | string | null
+    draw?: BoolWithAggregatesFilter<"games"> | boolean
     date?: DateTimeWithAggregatesFilter<"games"> | Date | string
   }
 
@@ -4422,6 +4446,7 @@ export namespace Prisma {
   }
 
   export type gamesCreateInput = {
+    draw?: boolean
     date?: Date | string
     User_games_player_1ToUser?: UserCreateNestedOneWithoutGames_games_player_1ToUserInput
     User_games_player_2ToUser?: UserCreateNestedOneWithoutGames_games_player_2ToUserInput
@@ -4433,10 +4458,12 @@ export namespace Prisma {
     player_1?: string | null
     player_2?: string | null
     winner?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
   export type gamesUpdateInput = {
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     User_games_player_1ToUser?: UserUpdateOneWithoutGames_games_player_1ToUserNestedInput
     User_games_player_2ToUser?: UserUpdateOneWithoutGames_games_player_2ToUserNestedInput
@@ -4448,6 +4475,7 @@ export namespace Prisma {
     player_1?: NullableStringFieldUpdateOperationsInput | string | null
     player_2?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4456,10 +4484,12 @@ export namespace Prisma {
     player_1?: string | null
     player_2?: string | null
     winner?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
   export type gamesUpdateManyMutationInput = {
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4468,6 +4498,7 @@ export namespace Prisma {
     player_1?: NullableStringFieldUpdateOperationsInput | string | null
     player_2?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4628,6 +4659,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
@@ -4649,6 +4685,7 @@ export namespace Prisma {
     player_1?: SortOrder
     player_2?: SortOrder
     winner?: SortOrder
+    draw?: SortOrder
     date?: SortOrder
   }
 
@@ -4661,6 +4698,7 @@ export namespace Prisma {
     player_1?: SortOrder
     player_2?: SortOrder
     winner?: SortOrder
+    draw?: SortOrder
     date?: SortOrder
   }
 
@@ -4669,6 +4707,7 @@ export namespace Prisma {
     player_1?: SortOrder
     player_2?: SortOrder
     winner?: SortOrder
+    draw?: SortOrder
     date?: SortOrder
   }
 
@@ -4708,6 +4747,14 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type SessionCreateNestedManyWithoutUserInput = {
@@ -4918,6 +4965,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
   export type UserUpdateOneWithoutGames_games_player_1ToUserNestedInput = {
     create?: XOR<UserCreateWithoutGames_games_player_1ToUserInput, UserUncheckedCreateWithoutGames_games_player_1ToUserInput>
     connectOrCreate?: UserCreateOrConnectWithoutGames_games_player_1ToUserInput
@@ -5044,6 +5095,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -5100,6 +5156,14 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type SessionCreateWithoutUserInput = {
     id?: string
     expiresAt: Date | string
@@ -5121,6 +5185,7 @@ export namespace Prisma {
   }
 
   export type gamesCreateWithoutUser_games_player_1ToUserInput = {
+    draw?: boolean
     date?: Date | string
     User_games_player_2ToUser?: UserCreateNestedOneWithoutGames_games_player_2ToUserInput
     User_games_winnerToUser?: UserCreateNestedOneWithoutGames_games_winnerToUserInput
@@ -5130,6 +5195,7 @@ export namespace Prisma {
     id?: number
     player_2?: string | null
     winner?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
@@ -5144,6 +5210,7 @@ export namespace Prisma {
   }
 
   export type gamesCreateWithoutUser_games_player_2ToUserInput = {
+    draw?: boolean
     date?: Date | string
     User_games_player_1ToUser?: UserCreateNestedOneWithoutGames_games_player_1ToUserInput
     User_games_winnerToUser?: UserCreateNestedOneWithoutGames_games_winnerToUserInput
@@ -5153,6 +5220,7 @@ export namespace Prisma {
     id?: number
     player_1?: string | null
     winner?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
@@ -5167,6 +5235,7 @@ export namespace Prisma {
   }
 
   export type gamesCreateWithoutUser_games_winnerToUserInput = {
+    draw?: boolean
     date?: Date | string
     User_games_player_1ToUser?: UserCreateNestedOneWithoutGames_games_player_1ToUserInput
     User_games_player_2ToUser?: UserCreateNestedOneWithoutGames_games_player_2ToUserInput
@@ -5176,6 +5245,7 @@ export namespace Prisma {
     id?: number
     player_1?: string | null
     player_2?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
@@ -5238,6 +5308,7 @@ export namespace Prisma {
     player_1?: StringNullableFilter<"games"> | string | null
     player_2?: StringNullableFilter<"games"> | string | null
     winner?: StringNullableFilter<"games"> | string | null
+    draw?: BoolFilter<"games"> | boolean
     date?: DateTimeFilter<"games"> | Date | string
   }
 
@@ -5490,6 +5561,7 @@ export namespace Prisma {
     id?: number
     player_2?: string | null
     winner?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
@@ -5497,6 +5569,7 @@ export namespace Prisma {
     id?: number
     player_1?: string | null
     winner?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
@@ -5504,6 +5577,7 @@ export namespace Prisma {
     id?: number
     player_1?: string | null
     player_2?: string | null
+    draw?: boolean
     date?: Date | string
   }
 
@@ -5523,6 +5597,7 @@ export namespace Prisma {
   }
 
   export type gamesUpdateWithoutUser_games_player_1ToUserInput = {
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     User_games_player_2ToUser?: UserUpdateOneWithoutGames_games_player_2ToUserNestedInput
     User_games_winnerToUser?: UserUpdateOneWithoutGames_games_winnerToUserNestedInput
@@ -5532,6 +5607,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     player_2?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5539,10 +5615,12 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     player_2?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type gamesUpdateWithoutUser_games_player_2ToUserInput = {
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     User_games_player_1ToUser?: UserUpdateOneWithoutGames_games_player_1ToUserNestedInput
     User_games_winnerToUser?: UserUpdateOneWithoutGames_games_winnerToUserNestedInput
@@ -5552,6 +5630,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     player_1?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5559,10 +5638,12 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     player_1?: NullableStringFieldUpdateOperationsInput | string | null
     winner?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type gamesUpdateWithoutUser_games_winnerToUserInput = {
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
     User_games_player_1ToUser?: UserUpdateOneWithoutGames_games_player_1ToUserNestedInput
     User_games_player_2ToUser?: UserUpdateOneWithoutGames_games_player_2ToUserNestedInput
@@ -5572,6 +5653,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     player_1?: NullableStringFieldUpdateOperationsInput | string | null
     player_2?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5579,6 +5661,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     player_1?: NullableStringFieldUpdateOperationsInput | string | null
     player_2?: NullableStringFieldUpdateOperationsInput | string | null
+    draw?: BoolFieldUpdateOperationsInput | boolean
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

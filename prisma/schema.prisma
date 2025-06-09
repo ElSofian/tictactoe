@@ -35,6 +35,7 @@ model games {
   player_1                  String?
   player_2                  String?
   winner                    String?
+  draw                      Boolean  @default(false)
   date                      DateTime @default(now()) @db.DateTime(0)
   User_games_player_1ToUser User?    @relation("games_player_1ToUser", fields: [player_1], references: [id], map: "games_player_1")
   User_games_player_2ToUser User?    @relation("games_player_2ToUser", fields: [player_2], references: [id], map: "games_player_2")

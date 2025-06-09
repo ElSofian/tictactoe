@@ -1,72 +1,146 @@
 "use client";
 
 import Main from "@/components/main";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
+import { getSocket } from "@/lib/socket";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function calculateWinner(squares: string[]) {
+function calculateWinner(sq: (string|null)[]) {
 	const lines = [
-		[0, 1, 2],
-		[3, 4, 5],
-		[6, 7, 8],
-		[0, 3, 6],
-		[1, 4, 7],
-		[2, 5, 8],
-		[0, 4, 8],
-		[2, 4, 6],
-	];
-	for (let i = 0; i < lines.length; i++) {
-		const [a, b, c] = lines[i];
-		if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-			return squares[a];
-		}
+		[0,1,2],[3,4,5],[6,7,8],
+		[0,3,6],[1,4,7],[2,5,8],
+		[0,4,8],[2,4,6],
+	] as const;
+	for (const [a,b,c] of lines) {
+		if (sq[a] && sq[a] === sq[b] && sq[a] === sq[c]) return sq[a];
 	}
 	return null;
 }
 
-export default function Game() {
+export default function GamePage() {
+  const { gameId } = useParams();
+  const params = useSearchParams();
+  const router = useRouter();
+  const symbol = params.get("symbol") as "X"|"O";
+  const opponent = params.get("opponent") ?? "Opponent";
+  const socket = getSocket();
 
-	const [squares, setSquares] = useState<string[]>(Array(9).fill(null));
-	const [xIsNext, setXIsNext] = useState(true);
+  const [squares, setSquares] = useState<(string|null)[]>(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
+  const [status, setStatus] = useState("");
 
-	const handleClick = (i: number) => {
-		const nextSquares = squares.slice();
-		if (nextSquares[i] || calculateWinner(nextSquares)) {
-			return;
-		}
-		console.log(nextSquares);
-		nextSquares[i] = xIsNext ? "X" : "O";
-		setSquares(nextSquares);
-		setXIsNext(!xIsNext);
-	};
+  useEffect(() => {
+    socket.emit("joinGame", { gameId, symbol });
+    const onRedirect = () => router.push("/");
+    socket.on("redirectHome", onRedirect);
 
-	const winner = calculateWinner(squares);
-	let status;
-	if (winner) {
-		status = `Winner is ${winner} ! Congrats !`;
-	} else if (squares.every(square => square !== null)) {
-		status = "Draw!";
-	} else {
-		status = `Turn: ${xIsNext ? "X" : "O"}`;
-	}
+    return () => {
+      socket.off("redirectHome", onRedirect);
+      socket.emit("leaveGame", { gameId });
+    };
+  }, [gameId, symbol, router, socket]);
 
-	return (
-		<Main>
-			<div className="flex flex-col items-center justify-center gap-8 text-white">
-				<h1 className="text-6xl font-bold text-center">{status}</h1>
-				<div className="flex flex-col items-center justify-center">
-					<div className="grid grid-cols-3 gap-2">
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(0)}>{squares[0]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(1)}>{squares[1]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(2)}>{squares[2]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(3)}>{squares[3]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(4)}>{squares[4]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(5)}>{squares[5]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(6)}>{squares[6]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(7)}>{squares[7]}</div>
-						<div className="bg-gray-500 w-20 h-20 text-white flex items-center justify-center text-4xl font-bold cursor-pointer hover:bg-gray-600" onClick={() => handleClick(8)}>{squares[8]}</div>
-					</div>
+  useEffect(() => {
+    setStatus(symbol === "X" ? "Votre tour" : `Au tour de ${opponent}`);
+  }, [symbol, opponent]);
+
+  useEffect(() => {
+    const onMove = ({ squares: sq, xIsNext: nx }: any) => {
+      setSquares(sq);
+      setXIsNext(nx);
+    };
+    const onTurn = ({ turn }: { turn: "X"|"O" }) => {
+      setStatus(turn === symbol ? "Votre tour" : `Au tour de ${opponent}`);
+    };
+    const onWinner = ({ winner }: { winner: "X"|"O" }) => {
+      setStatus(winner === symbol ? "Vous avez gagné !" : "Vous avez perdu !");
+    };
+    const onDraw = () => {
+      setStatus("Égalité !");
+    };
+
+    socket.on("move", onMove);
+    socket.on("turn", onTurn);
+    socket.on("winner", onWinner);
+    socket.on("draw", onDraw);
+
+    return () => {
+      socket.off("move", onMove);
+      socket.off("turn", onTurn);
+      socket.off("winner", onWinner);
+      socket.off("draw", onDraw);
+    };
+  }, [symbol, opponent, socket]);
+
+  useEffect(() => {
+    const onGameEnded = (data: { winner?: string; draw?: boolean; abandoned?: boolean }) => {
+      if (data.abandoned) {
+        toast.info("Votre adversaire a abandonné la partie, vous avez donc gagné.");
+      } else if (data.draw) {
+        toast.info("Match nul !");
+      } else if (data.winner === symbol) {
+        toast.success("Vous avez gagné !");
+      } else {
+        toast.error("Vous avez perdu !");
+      }
+      setTimeout(() => router.push("/"), 3000);
+    };
+
+    socket.on("gameEnded", onGameEnded);
+
+    return () => {
+      socket.off("gameEnded", onGameEnded);
+    };
+  }, [symbol, router, socket]);
+
+  const handleClick = (i: number) => {
+    const next = squares.slice();
+    if (next[i] || calculateWinner(next)) return;
+    if ((xIsNext ? "X" : "O") !== symbol) return;
+
+    next[i] = symbol;
+    const newX = !xIsNext;
+    setSquares(next);
+    setXIsNext(newX);
+
+    const win = calculateWinner(next);
+    if (win) {
+      socket.emit("winner", { gameId, winner: win });
+      return;
+    }
+    if (next.every(v => v !== null)) {
+      socket.emit("draw", { gameId });
+      return;
+    }
+
+    socket.emit("turn", { gameId, turn: newX ? "X" : "O" });
+    socket.emit("move", { gameId, squares: next, xIsNext: newX });
+  };
+
+  return (
+    <Main>
+			<div className="flex flex-col items-center justify-center gap-2">
+				<ToastContainer position="top-center" autoClose={3000} />
+				<h1 className="text-4xl mb-6 text-center">{status}</h1>
+				<div className="grid grid-cols-3 gap-2">
+					{squares.map((v, i) => (
+						<div
+						key={i}
+						onClick={() => handleClick(i)}
+						className={`
+							w-20 h-20 flex items-center justify-center
+							text-3xl font-bold text-white
+							bg-gray-700 rounded cursor-pointer
+							${!calculateWinner(squares) && v === null ? 'hover:bg-gray-600' : ''}
+							`}
+							>
+							{v}
+						</div>
+					))}
 				</div>
 			</div>
-		</Main>
-	)
+    </Main>
+  );
 }

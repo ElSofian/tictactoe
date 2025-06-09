@@ -137,6 +137,7 @@ exports.Prisma.GamesScalarFieldEnum = {
   player_1: 'player_1',
   player_2: 'player_2',
   winner: 'winner',
+  draw: 'draw',
   date: 'date'
 };
 
