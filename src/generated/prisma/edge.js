@@ -157,7 +157,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Sofian\\Documents\\Projects\\tictactoe\\src\\generated\\prisma",
+      "value": "/home/ubuntu/tictactoe/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -166,12 +166,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Sofian\\Documents\\Projects\\tictactoe\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/ubuntu/tictactoe/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

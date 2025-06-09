@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-		"deploy": "next build && mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next && cp -r public .next/standalone",
+	"deploy": "next build && mkdir -p .next/standalone/.next && cp -r .next/static .next/standalone/.next && cp -r public .next/standalone",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
