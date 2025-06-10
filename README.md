@@ -7,7 +7,7 @@
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=prisma&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-> Un jeu de Morpion (TicTacToe) multijoueur en temps réel, propulsé par WebSockets, construit avec Next.js, React, TypeScript, Tailwind CSS, Prisma et MySQL.
+Un jeu de Morpion (TicTacToe) multijoueur en temps réel, propulsé par WebSockets, construit avec Next.js, React, TypeScript, Tailwind CSS, Prisma et MySQL.
 
 ---
 
