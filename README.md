@@ -45,7 +45,7 @@ L’application utilise des WebSockets pour synchroniser instantanément les cou
 Avant de commencer, assurez-vous d’avoir installé :
 
 - **Node.js** (>= 16.x) et **npm** ou **yarn**  
-- **MySQL** (en local ou sur un serveur distant)  
+- **MySQL** (voir [Xampp](https://www.apachefriends.org/fr/index.html) si vous souhaitez le host en local). 
 - **Git** pour cloner le dépôt
 
 ---
