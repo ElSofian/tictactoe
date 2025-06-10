@@ -96,6 +96,8 @@ export default function GamePage() {
   }, [symbol, router, socket]);
 
 	function getTheme() {
+		if (typeof window === 'undefined') return;
+		
 		const theme = localStorage.getItem("theme") || "light";
 		return theme === "light" ? "light" : "dark";
 	}

@@ -7,12 +7,16 @@ export default function Navbar({ inGame }: { inGame: boolean }) {
 	const [theme, setTheme] = useState("light");
 
 	useEffect(() => {
+		if (typeof window === 'undefined') return;
+		
 		const savedTheme = localStorage.getItem("theme") || "light";
 		setTheme(savedTheme);
 		document.documentElement.classList.toggle("dark", savedTheme === "dark");
 	}, []);
 
 	const toggleTheme = () => {
+		if (typeof window === 'undefined') return;
+
 		const newTheme = theme === "light" ? "dark" : "light";
 		setTheme(newTheme);
 		localStorage.setItem("theme", newTheme);
