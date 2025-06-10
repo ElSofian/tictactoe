@@ -41,7 +41,7 @@ export default function LoginPage() {
 									: "text-gray-600 dark:text-white "
 							}`}
 						>
-							S'inscrire
+							S&apos;inscrire
 						</button>
 					</div>
 
@@ -115,7 +115,7 @@ export default function LoginPage() {
 									type="submit"
 									className="rounded-md p-2 outline-none bg-black dark:bg-gray-700 text-white text-center cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-600 transition-colors"
 								>
-									S'inscrire
+									S&apos;inscrire
 								</button>
 							</form>
 						</div>
