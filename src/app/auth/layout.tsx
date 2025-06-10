@@ -19,7 +19,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-svh bg-black">
+    <div className="flex flex-col items-center justify-center w-full min-h-svh bg-gray-100 dark:bg-black">
       {children}
     </div>
   );

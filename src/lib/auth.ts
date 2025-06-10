@@ -61,6 +61,31 @@ export async function login(formData: FormData) {
 	return { session };
 }
 
+export async function register(formData: FormData) {
+	const username = formData.get('username') as string;
+	const password = formData.get('password') as string;
+
+	const existingUser = await prisma.user.findUnique({
+		where: { username }
+	});
+	
+	if (existingUser) {
+		throw new Error("USER_ALREADY_EXISTS");
+	}
+
+	const hashedPassword = await bcrypt.hash(password, 10);
+
+	const user = await prisma.user.create({
+		data: { username, hashedPassword }
+	});
+
+	const session = await auth.createSession(user.id, {
+		expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30)
+	});
+
+	return { session };
+}
+
 export async function requireAuth() {
 	const cookieStore = await cookies();
 	const sid = cookieStore.get(sessionCookieName)?.value;

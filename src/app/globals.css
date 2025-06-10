@@ -8,6 +8,8 @@
 	--muted-foreground: var(--muted-foreground);
 	--muted-background: var(--muted-background);
 	--table-header-dark: var(--table-header-dark);
+	--shadow-main: var(--shadow-main);
+	--shadow-little: var(--shadow-little);
 }
 
 :root {
