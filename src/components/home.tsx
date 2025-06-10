@@ -42,7 +42,7 @@ export default function Home({ user }: { user: User }) {
 						</button>
 					</div>
 				) : (
-					<button onClick={startMatchmaking} className="bg-black text-white dark:bg-gray-300 dark:text-black dark:shadow-main font-bold px-4 py-2 rounded-md cursor-pointer">
+					<button onClick={startMatchmaking} className="bg-black text-white dark:bg-white dark:text-black dark:shadow-main font-bold px-4 py-2 rounded-md cursor-pointer">
 						Search a match
 					</button>
 				)}
