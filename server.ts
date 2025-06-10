@@ -43,6 +43,7 @@ let waitingUser: WaitingUser | null = null;
 const gameRooms = new Map<string, GameRoom>();
 
 io.on('connection', socket => {
+	console.log('🔌 User connected:', socket.id);
 
   socket.on('joinMatchmaking', async ({ user }: { user: { id: string; username: string } }) => {
     const current: WaitingUser = { id: user.id, socketId: socket.id, username: user.username };
@@ -179,6 +180,10 @@ io.on('connection', socket => {
     }
   });
 
+});
+
+io.on('error', (err) => {
+	console.error('❌ Socket error:', err);
 });
 
 server.listen(PORT, () => {
