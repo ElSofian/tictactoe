@@ -7,11 +7,6 @@ import { getSocket } from "@/lib/socket";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function getTheme() {
-	const theme = localStorage.getItem("theme") || "light";
-	return theme === "light" ? "light" : "dark";
-}
-
 function calculateWinner(sq: (string|null)[]) {
 	const lines = [
 		[0,1,2],[3,4,5],[6,7,8],
@@ -99,6 +94,11 @@ export default function GamePage() {
       socket.off("gameEnded", onGameEnded);
     };
   }, [symbol, router, socket]);
+
+	function getTheme() {
+		const theme = localStorage.getItem("theme") || "light";
+		return theme === "light" ? "light" : "dark";
+	}
 
   const handleClick = (i: number) => {
     const next = squares.slice();
